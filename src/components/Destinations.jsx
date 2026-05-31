@@ -37,7 +37,7 @@ export default function Destinations({ searchQuery }) {
     if (searchQuery) params.set('q', searchQuery);
 
     setLoading(true);
-    fetch(`/api/destinations?${params}`)
+    fetch(`${import.meta.env.VITE_API_URL ?? ''}/api/destinations?${params}`)
       .then(r => r.json())
       .then(data => { setDestinations(data); setLoading(false); })
       .catch(() => setLoading(false));
