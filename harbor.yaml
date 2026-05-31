@@ -1,0 +1,8 @@
+app: travelpro
+kind: web
+stack: { backend: fastapi, frontend: none, auth: none }
+substrate: shared
+database: { strategy: shared-instance, engine: postgres }
+environments: [staging, prod]
+services:
+  - { name: api, type: web, port: 8002 }

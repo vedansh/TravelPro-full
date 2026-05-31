@@ -1,0 +1,20 @@
+services:
+  api:
+    build: .
+    ports: ["8002:8002"]
+    env_file: [.env]
+    restart: unless-stopped
+
+  # Add a background worker with: harbor add-service --type=worker
+  # worker:
+  #   build: .
+  #   command: celery -A app.worker.celery worker --loglevel=info
+  #   env_file: [.env]
+  #   restart: unless-stopped
+
+  # Add a scheduler (celery beat) with: harbor add-service --type=cron
+  # beat:
+  #   build: .
+  #   command: celery -A app.worker.celery beat --loglevel=info
+  #   env_file: [.env]
+  #   restart: unless-stopped

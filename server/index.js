@@ -2,9 +2,10 @@ import express from 'express';
 import cors from 'cors';
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
+const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173';
 
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: CORS_ORIGIN }));
 app.use(express.json());
 
 const destinations = [
@@ -63,6 +64,8 @@ const destinations = [
 
 const subscribers = [];
 
+app.get('/health', (_req, res) => res.json({ status: 'ok', app: 'travelpro' }));
+
 // GET all destinations, with optional ?region= and ?q= filters
 app.get('/api/destinations', (req, res) => {
   const { region, q } = req.query;
@@ -98,6 +101,6 @@ app.post('/api/newsletter', (req, res) => {
   res.json({ message: 'Subscribed successfully' });
 });
 
-app.listen(PORT, '127.0.0.1', () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`TravelPro API running at http://127.0.0.1:${PORT}`);
 });
